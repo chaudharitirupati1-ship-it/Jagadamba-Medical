@@ -1,4 +1,4 @@
-const CACHE_NAME = "jagadamba-medical-v2";
+const CACHE_NAME = "jagadamba-medical-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (event) => {
