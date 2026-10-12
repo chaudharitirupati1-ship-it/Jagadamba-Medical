@@ -45,6 +45,12 @@
   window.addEventListener("unhandledrejection", function(e) {
     showBootError(e.reason && (e.reason.message || e.reason) || "An unhandled startup promise failed.");
   });
+  window.setTimeout(function() {
+    var root = document.getElementById("root");
+    if (root && !root.firstElementChild) {
+      showBootError("The app did not render. One of its JavaScript libraries may be blocked or failed to load. Open this page in Chrome and refresh; if it persists, send this message to the site owner.");
+    }
+  }, 8000);
 })();
 </script>
 
