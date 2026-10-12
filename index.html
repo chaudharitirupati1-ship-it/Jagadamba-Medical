@@ -19,7 +19,34 @@
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root"><div style="font-family:Arial,sans-serif;padding:24px;color:#1E4A3D">Loading Jagadamba Medical…</div></div>
+<div id="boot-error" style="display:none;margin:20px;padding:16px;border:1px solid #d99;background:#fff4f4;color:#7b1f1f;border-radius:12px;font:14px/1.5 Arial,sans-serif">
+<strong>Jagadamba Medical could not start.</strong><p id="boot-error-message" style="white-space:pre-wrap"></p><p>Check your internet connection, then refresh this page. If this message remains, share a screenshot with the site owner.</p>
+</div>
+<script>
+(function(){
+  function showBootError(message) {
+    var box = document.getElementById("boot-error");
+    var msg = document.getElementById("boot-error-message");
+    if (box && msg) {
+      msg.textContent = String(message || "Unknown startup error");
+      box.style.display = "block";
+      var root = document.getElementById("root");
+      if (root) root.style.display = "none";
+    }
+  }
+  window.addEventListener("error", function(e) {
+    if (e && e.target && e.target !== window && e.target.tagName === "SCRIPT") {
+      showBootError("A required script failed to load: " + (e.target.src || "unknown script"));
+    } else if (e && e.message) {
+      showBootError(e.message + (e.filename ? "\\n" + e.filename + ":" + e.lineno : ""));
+    }
+  }, true);
+  window.addEventListener("unhandledrejection", function(e) {
+    showBootError(e.reason && (e.reason.message || e.reason) || "An unhandled startup promise failed.");
+  });
+})();
+</script>
 
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
